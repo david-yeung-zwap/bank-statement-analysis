@@ -22,7 +22,11 @@ def process_file_and_keyword(file: UploadedFile, keyword: list[str], api_key: st
 
     # Example processing
     prompt = "extract all the transactions as a json object."
-    response_json = process_file_with_gemini(file, prompt, api_key)
+    response_json, metadata = process_file_with_gemini(file, prompt, api_key)
+    if metadata:
+        print(metadata.prompt_token_count)
+        print(metadata.candidates_token_count)
+    print(response_json)
     return json.loads(response_json)
 
 # Set up the Streamlit app
@@ -60,6 +64,11 @@ if uploaded_file is not None and key:
 
         # Display the results
         st.subheader("Processing Results:")
+        st.json({
+            'bank_name': result['bank_name'],
+            'bank_account': result['bank_account'],
+            'bank_holder': result['bank_holder'],
+        })
         st.dataframe(df_result, hide_index=True)
 
     # You can customize the output display based on your specific needs

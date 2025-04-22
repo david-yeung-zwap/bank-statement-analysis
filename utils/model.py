@@ -17,6 +17,9 @@ class Transaction(BaseModel):
 
 
 class Statement(BaseModel):
+    bank_account: str
+    bank_name: str
+    bank_holder: str
     transactions: list[Transaction]
 
 
@@ -31,19 +34,17 @@ def process_file_with_gemini(
     bytes_data = file.getvalue()
     myfile = client.files.upload(file=BytesIO(bytes_data), config={"mime_type": file.type})
 
-    try:
-        # Generate content from the input text
-        response = client.models.generate_content(
-            model="gemini-2.0-flash-001",
-            contents=[input_text, myfile],
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": Statement,
-            },
-        )
+    # Generate content from the input text
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=[input_text, myfile],
+        config={
+            "response_mime_type": "application/json",
+            "response_schema": Statement,
+        },
+    )
 
-        # Return the generated text
-        return response.text or "{}"
+    output = response.text or "{}"
 
-    except Exception as e:
-        return f"Error: Failed to process text - {str(e)}"
+    # Return the generated text
+    return output, response.usage_metadata
