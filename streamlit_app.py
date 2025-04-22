@@ -8,7 +8,6 @@ from utils.model import process_file_with_gemini
 
 def process_file_and_keyword(file: UploadedFile, keyword: list[str], api_key: str):
 
-    API_KEY: str = api_key
     """
     Process the uploaded file and text input.
     This is a placeholder function - replace with your actual processing logic.
@@ -23,7 +22,7 @@ def process_file_and_keyword(file: UploadedFile, keyword: list[str], api_key: st
 
     # Example processing
     prompt = "extract all the transactions as a json object."
-    response_json = process_file_with_gemini(file, prompt, API_KEY)
+    response_json = process_file_with_gemini(file, prompt, api_key)
     return json.loads(response_json)
 
 # Set up the Streamlit app

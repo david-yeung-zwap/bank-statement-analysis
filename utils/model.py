@@ -21,11 +21,9 @@ class Statement(BaseModel):
 
 
 def process_file_with_gemini(
-    file: UploadedFile, input_text: str, api_key: Optional[str] = None
+    file: UploadedFile, input_text: str, api_key: str
 ):
     # Configure the API key (set it as an environment variable or directly here)
-    if not api_key:
-        api_key = "your-api-key-here"  # Replace with your actual Gemini API key
     os.environ["GOOGLE_API_KEY"] = api_key
     # Initialize the Gemini model (using Gemini 1.5 Flash as an example)
     client = genai.Client(api_key=api_key)
