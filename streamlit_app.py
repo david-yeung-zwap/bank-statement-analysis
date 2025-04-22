@@ -40,7 +40,7 @@ api_key = st.text_input("Enter API Key:", type="password")
 # text_list = user_text.strip().split('\n')
 # text_list = [text.strip() for text in text_list]
 
-if uploaded_file is not None:
+if uploaded_file is not None and api_key:
     # Process the inputs
     bytes_data = uploaded_file.getvalue()
 
