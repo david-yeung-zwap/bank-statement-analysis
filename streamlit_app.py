@@ -35,7 +35,7 @@ uploaded_file = st.file_uploader("Choose an file...", type=["jpg", "jpeg", "png"
 
 # user_text = st.text_area("Enter your keywords with new line as separator:", height=150, placeholder="THE H K JOCKEY CLUB\n自動轉帳\nAUTOPAY")
 api_key = st.text_input("Enter API Key:", type="password")
-key = api_key or st.secrets["GEMINI_API_KEY"]
+key = api_key or st.secrets.get("GEMINI_API_KEY")
 # Add regex validation for CSV format
 # Simple CSV validation - checks if lines have consistent number of commas
 # text_list = user_text.strip().split('\n')
